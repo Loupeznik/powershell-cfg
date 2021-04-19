@@ -4,6 +4,7 @@
 #>
 
 Set-PoshPrompt -Theme ~\.custom.omp.json
+$Host.ui.RawUI.WindowTitle = "[PS] $PWD"
 
 if (!(Test-Path -Path "$HOME\scripts"))
 {
@@ -14,3 +15,29 @@ if (!("$HOME\scripts" -in $Env:Path))
 {
     $Env:Path += ";$HOME\scripts"
 }
+
+# Functions
+Function .. { cd ..\ }
+Function ... { cd ..\.. }
+
+Function Update-Posh-Theme { atom ~\.custom.omp.json }
+
+Function Start-Artisan-Server
+{
+    if (!(Test-Path ".\artisan" -PathType Leaf)) {
+        Write-Host "Artisan not found in this directory" -ForegroundColor red
+    }
+    else
+    {
+        if ((Get-Process "wampmanager" -ea SilentlyContinue) -eq $Null)
+        {
+            Write-Host "Starting WAMP server" -ForegroundColor green
+            Start-Process -FilePath "C:\wamp64\wampmanager.exe"
+        }
+        php artisan serve
+    }
+}
+
+# Aliases
+Set-Alias -Name sudo -Value admin
+Set-Alias -Name serve -Value Start-Artisan-Server
