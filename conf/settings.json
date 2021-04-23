@@ -92,6 +92,10 @@
         // Press Ctrl+Shift+F to open the search box
         { "command": "find", "keys": "ctrl+shift+f" },
 
+        // Tab swapping
+        { "command": "nextTab", "keys": "shift+right" },
+        { "command": "prevTab", "keys": "shift+left" },
+
         // - "split": "auto" makes this pane open in the direction that provides the most surface area.
         // - "splitMode": "duplicate" makes the new pane use the focused pane's profile.
         // To learn more about panes, visit https://aka.ms/terminal-panes

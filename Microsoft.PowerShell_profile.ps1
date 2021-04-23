@@ -19,6 +19,8 @@ if (!("$HOME\scripts" -in $Env:Path))
 # Functions
 Function .. { cd ..\ }
 Function ... { cd ..\.. }
+Function www { cd ~\Documents\www }
+Function Edit-Profile { atom $PROFILE }
 
 Function Update-Posh-Theme { atom ~\.custom.omp.json }
 
@@ -39,5 +41,4 @@ Function Start-Artisan-Server
 }
 
 # Aliases
-Set-Alias -Name sudo -Value admin
 Set-Alias -Name serve -Value Start-Artisan-Server
