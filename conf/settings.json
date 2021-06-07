@@ -59,18 +59,31 @@
                 "hidden": false
             },
             {
-                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-                "hidden": false,
-                "name": "Azure Cloud Shell",
-                "source": "Windows.Terminal.Azure"
-            },
-            {
                 "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
                 "hidden": false,
                 "name": "Ubuntu",
                 "source": "Windows.Terminal.Wsl",
                 "colorScheme": "Tango Dark"
-            }
+            },
+            {
+                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+                "hidden": true,
+                "name": "Azure Cloud Shell",
+                "source": "Windows.Terminal.Azure"
+            },
+            {
+                "guid": "{46ca431a-3a87-5fb3-83cd-11ececc031d2}",
+                "hidden": false,
+                "name": "Kali Linux",
+                "source": "Windows.Terminal.Wsl"
+            },
+            // Kali Linux and Win-KeX for WSL need to be installed
+            {
+                "guid": "{95f6b85b-8d8c-4e0b-bb77-671a330c6888}",
+                "hidden": false,
+                "name": "Kali GUI (Win-KeX)",
+                "commandline": "wsl -d kali-linux kex --sl --wtstart -s",
+          },
         ]
     },
 

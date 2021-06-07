@@ -21,6 +21,7 @@ Function .. { cd ..\ }
 Function ... { cd ..\.. }
 Function www { cd ~\Documents\www }
 Function Edit-Profile { atom $PROFILE }
+Function Generate-Guid { [guid]::NewGuid() }
 
 Function Update-Posh-Theme { atom ~\.custom.omp.json }
 
