@@ -1,0 +1,28 @@
+add_newline = true
+
+format = """\
+(238)$env_var\
+$all(238)$character"""
+
+[character]
+success_symbol = "[](238)"
+error_symbol = "[](238)"
+
+[env_var.STARSHIP_DISTRO]
+format = '[$env_value](bold white)'
+variable = "STARSHIP_DISTRO"
+disabled = false
+
+[terraform]
+format = "via [ terraform $version]($style) 壟 [$workspace]($style) "
+
+
+[docker_context]
+format = "via [ $context](bold blue) "
+
+[helm]
+format = "via [ $version](bold orange) "
+
+[kubernetes]
+format = 'on [ $context\($namespace\)](bold orange) '
+disabled = false
