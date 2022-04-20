@@ -60,6 +60,18 @@ Function kctx {
     }
 }
 
+Function ka {
+    $config = $args[0]
+
+    kubectl apply -f $config
+}
+
+Function kd {
+    $config = $args[0]
+
+    kubectl delete -f $config
+}
+
 # Aliases
 Remove-Alias h
 Set-Alias -Name k -Value kubectl
