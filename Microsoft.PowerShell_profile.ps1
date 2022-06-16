@@ -21,6 +21,7 @@ Function New-Guid { [guid]::NewGuid() }
 Function Open-VSCode { code . }
 
 Function dev { Set-Location C:\Dev }
+Function cdssh { Set-Location ~\.ssh }
 Function .. { Set-Location ..\ }
 Function ... { Set-Location ..\.. }
 
