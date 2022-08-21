@@ -79,6 +79,7 @@ Set-Alias -Name k -Value kubectl
 Set-Alias -Name h -Value helm
 Set-Alias -Name u -Value ubuntu
 Set-Alias -Name c -Value Open-VSCode
+Set-Alias -Name grep -Value Select-String
 
 # PSReadLine
 Import-Module PSReadLine
