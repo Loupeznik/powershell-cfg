@@ -1,6 +1,7 @@
 <#
     Local PowerShell profile
     Location: $HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
+    Source: https://github.com/Loupeznik/powershell-cfg/blob/master/Microsoft.PowerShell_profile.ps1
 #>
 
 # Add script folder to PATH
@@ -72,6 +73,28 @@ Function kd {
 
     kubectl delete -f $config
 }
+
+Function kg {
+    $resource = $args[0]
+
+    kubectl get $resource
+}
+
+Function kexec {
+   $pod = $args[0]
+
+   kubectl exec -it $pod sh
+}
+
+Function kgp { kubectl get pod }
+
+Function kgns { kubectl get ns }
+
+Function kgd { kubectl get deploy }
+
+Function kgpv { kubectl get pv }
+
+Function kgpvc { kubectl get pvc }
 
 # Aliases
 Remove-Alias h
