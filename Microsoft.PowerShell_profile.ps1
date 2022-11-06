@@ -21,6 +21,19 @@ Function New-Guid { [guid]::NewGuid() }
 
 Function Open-VSCode { code . }
 
+Function Open-Explorer {
+    $dir = $args[0]
+
+    if ($null -eq $dir)
+    {
+        explorer .
+    }
+    else 
+    {
+        explorer $dir
+    }
+}
+
 Function dev { Set-Location C:\Dev }
 Function cdssh { Set-Location ~\.ssh }
 Function .. { Set-Location ..\ }
@@ -103,6 +116,8 @@ Set-Alias -Name h -Value helm
 Set-Alias -Name u -Value ubuntu
 Set-Alias -Name c -Value Open-VSCode
 Set-Alias -Name grep -Value Select-String
+Set-Alias -Name e -Value Open-Explorer
+Set-Alias -Name cl -Value clear
 
 # PSReadLine
 Import-Module PSReadLine
