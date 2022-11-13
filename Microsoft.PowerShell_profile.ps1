@@ -118,6 +118,7 @@ Set-Alias -Name c -Value Open-VSCode
 Set-Alias -Name grep -Value Select-String
 Set-Alias -Name e -Value Open-Explorer
 Set-Alias -Name cl -Value clear
+Set-Alias -Name tf -Value terraform
 
 # PSReadLine
 Import-Module PSReadLine
