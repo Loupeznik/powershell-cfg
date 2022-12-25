@@ -109,6 +109,8 @@ Function kgpv { kubectl get pv }
 
 Function kgpvc { kubectl get pvc }
 
+Function almalinux { wsl -d AlmaLinux9 }
+
 # Aliases
 Remove-Alias h
 Set-Alias -Name k -Value kubectl
