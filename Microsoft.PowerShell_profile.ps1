@@ -34,6 +34,10 @@ Function Open-Explorer {
     }
 }
 
+Function which {
+    cmd /c where $args[0]
+}
+
 Function dev { Set-Location C:\Dev }
 Function cdssh { Set-Location ~\.ssh }
 Function .. { Set-Location ..\ }
