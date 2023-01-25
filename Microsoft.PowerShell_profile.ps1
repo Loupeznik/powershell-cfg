@@ -5,14 +5,14 @@
 #>
 
 # Add script folder to PATH
-if (!(Test-Path -Path "$HOME\scripts"))
+if (!(Test-Path -Path "$HOME\bin"))
 {
-    New-Item -ItemType Directory "$HOME\scripts"
+    New-Item -ItemType Directory "$HOME\bin"
 }
 
-if (!("$HOME\scripts" -in $Env:Path))
+if (!("$HOME\bin" -in $Env:Path))
 {
-    $Env:Path += ";$HOME\scripts"
+    $Env:Path += ";$HOME\bin"
 }
 
 # Functions

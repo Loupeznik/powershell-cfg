@@ -38,7 +38,7 @@ function cleanup() {
 }
 
 # Prepare environment
-$scriptsDir = "$HOME\scripts"
+$scriptsDir = "$HOME\bin"
 
 if (!(Test-Path -Path $scriptsDir))
 {
