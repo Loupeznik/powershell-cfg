@@ -16,7 +16,6 @@ disabled = false
 [terraform]
 format = "via [ terraform $version]($style) 壟 [$workspace]($style) "
 
-
 [docker_context]
 format = "via [ $context](bold blue) "
 
@@ -25,4 +24,20 @@ format = "via [ $version](bold orange) "
 
 [kubernetes]
 format = 'on [ $context\($namespace\)](bold orange) '
+disabled = false
+
+[azure]
+disabled = false
+format = 'on [$symbol($subscription)]($style) '
+symbol = 'ﴃ '
+style = 'blue bold'
+
+[aws]
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = 'bold blue'
+disabled = true
+
+[localip]
+ssh_only = false
+format = '\[[$localipv4](bold red)\] '
 disabled = false
