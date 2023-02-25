@@ -115,6 +115,8 @@ Function kgpvc { kubectl get pvc }
 
 Function almalinux { wsl -d AlmaLinux9 }
 
+Function Stop-Paint { Get-Process -Name "mspaint" | Stop-Process }
+
 # Aliases
 Remove-Alias h
 Set-Alias -Name k -Value kubectl
