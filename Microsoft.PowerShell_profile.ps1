@@ -117,6 +117,17 @@ Function almalinux { wsl -d AlmaLinux9 }
 
 Function Stop-Paint { Get-Process -Name "mspaint" | Stop-Process }
 
+Function Get-YT-MP3 {
+    if ($null -eq (Get-Command "yt-dlp" -ErrorAction SilentlyContinue)) {
+        Write-Host "yt-dlp is not installed" -ForegroundColor Red
+        return
+    }
+
+    $url = $args[0]
+
+    yt-dlp $url -x --audio-format mp3
+}
+
 # Aliases
 Remove-Alias h
 Set-Alias -Name k -Value kubectl
