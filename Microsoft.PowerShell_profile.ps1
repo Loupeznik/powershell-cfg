@@ -128,6 +128,30 @@ Function Get-YT-MP3 {
     yt-dlp $url -x --audio-format mp3
 }
 
+Function gpush {
+    $remote = $args[0]
+    $branch = $args[1]
+
+    if (($remote -eq 'current') -and ($null -eq $branch)) {
+        git push origin $(git branch --show-current)
+        return
+    }
+
+    git push $remote $branch
+}
+
+Function gpull {
+    $remote = $args[0]
+    $branch = $args[1]
+
+    if (($remote -eq 'current') -and ($null -eq $branch)) {
+        git pull origin $(git branch --show-current)
+        return
+    }
+
+    git pull $remote $branch
+}
+
 # Aliases
 Remove-Alias h
 Set-Alias -Name k -Value kubectl
