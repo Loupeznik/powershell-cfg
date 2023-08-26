@@ -162,6 +162,8 @@ Set-Alias -Name grep -Value Select-String
 Set-Alias -Name e -Value Open-Explorer
 Set-Alias -Name cl -Value clear
 Set-Alias -Name tf -Value terraform
+Set-Alias -Name unzip -Value Expand-Archive
+Set-Alias -Name zip -Value Compress-Archive
 
 # PSReadLine
 Import-Module PSReadLine
@@ -170,3 +172,8 @@ Set-PSReadLineOption -PredictionSource History
 # Starship
 $ENV:STARSHIP_DISTRO = "$Env:username on 者 "
 Invoke-Expression (&starship init powershell)
+
+if (Get-Command "fnm.exe" -ErrorAction SilentlyContinue)
+{
+   fnm env --use-on-cd | Out-String | Invoke-Expression
+}
