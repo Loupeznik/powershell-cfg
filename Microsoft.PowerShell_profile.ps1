@@ -152,6 +152,10 @@ Function gpull {
     git pull $remote $branch
 }
 
+Function x {
+    exit
+}
+
 # Aliases
 Remove-Alias h
 Set-Alias -Name k -Value kubectl
