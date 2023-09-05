@@ -15,6 +15,14 @@ if (!("$HOME\bin" -in $Env:Path))
     $Env:Path += ";$HOME\bin"
 }
 
+if (Get-Command "flutter" -ErrorAction SilentlyContinue) 
+{ 
+    $localAppData = $env:LocalAppData
+    $pubPackagesPath = Join-Path -Path $localAppData -ChildPath "Pub\Cache\bin"
+
+    $Env:Path += ";$pubPackagesPath"
+}
+
 # Functions
 Function Edit-Profile { code $PROFILE }
 Function New-Guid { [guid]::NewGuid() }
