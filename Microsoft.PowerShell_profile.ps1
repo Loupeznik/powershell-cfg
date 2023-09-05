@@ -16,9 +16,8 @@ if (!("$HOME\bin" -in $Env:Path))
 }
 
 if (Get-Command "flutter" -ErrorAction SilentlyContinue) 
-{ 
-    $localAppData = $env:LocalAppData
-    $pubPackagesPath = Join-Path -Path $localAppData -ChildPath "Pub\Cache\bin"
+{
+    $pubPackagesPath = Join-Path -Path $env:LocalAppData -ChildPath "Pub\Cache\bin"
 
     $Env:Path += ";$pubPackagesPath"
 }
