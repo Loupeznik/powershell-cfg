@@ -135,6 +135,17 @@ Function Get-YT-MP3 {
     yt-dlp $url -x --audio-format mp3
 }
 
+Function Get-YT-MP4 {
+    if ($null -eq (Get-Command "yt-dlp" -ErrorAction SilentlyContinue)) {
+        Write-Host "yt-dlp is not installed" -ForegroundColor Red
+        return
+    }
+
+    $url = $args[0]
+
+    yt-dlp $url -f mp4
+}
+
 Function gpush {
     $remote = $args[0]
     $branch = $args[1]
