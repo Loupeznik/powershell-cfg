@@ -25,7 +25,6 @@ if (Get-Command "flutter" -ErrorAction SilentlyContinue)
 # Functions
 Function Edit-Profile { code $PROFILE }
 Function New-Guid { [guid]::NewGuid() }
-
 Function Open-VSCode { code . }
 
 Function Open-Explorer {
@@ -49,9 +48,7 @@ Function dev { Set-Location C:\Dev }
 Function cdssh { Set-Location ~\.ssh }
 Function .. { Set-Location ..\ }
 Function ... { Set-Location ..\.. }
-
-# Remote servers
-Function sshmaster { ssh master@master.local }
+Function .... { Set-Location ..\..\.. }
 
 # Go
 Function gor { go run . }
@@ -120,8 +117,10 @@ Function kgpv { kubectl get pv }
 
 Function kgpvc { kubectl get pvc }
 
+# WSL
 Function almalinux { wsl -d AlmaLinux9 }
 
+# Common
 Function Stop-Paint { Get-Process -Name "mspaint" | Stop-Process }
 
 Function Get-YT-MP3 {
@@ -195,11 +194,15 @@ Set-Alias -Name zip -Value Compress-Archive
 Import-Module PSReadLine
 Set-PSReadLineOption -PredictionSource History
 
-# Starship
-$ENV:STARSHIP_DISTRO = "$Env:username on 者 "
-Invoke-Expression (&starship init powershell)
+# Init Starship
+if (Get-Command "starship" -ErrorAction SilentlyContinue)
+{
+    $ENV:STARSHIP_DISTRO = "$Env:username on 者 "
+    Invoke-Expression (&starship init powershell)
+}
 
-if (Get-Command "fnm.exe" -ErrorAction SilentlyContinue)
+# Init fnm
+if (Get-Command "fnm" -ErrorAction SilentlyContinue)
 {
    fnm env --use-on-cd | Out-String | Invoke-Expression
 }
