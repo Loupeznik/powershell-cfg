@@ -174,6 +174,10 @@ Function x {
     exit
 }
 
+Function whatsmyip {
+    (Invoke-WebRequest 'https://ipinfo.io/ip').Content
+}
+
 # Aliases
 Remove-Alias h
 Set-Alias -Name k -Value kubectl
