@@ -5,18 +5,15 @@
 #>
 
 # Add script folder to PATH
-if (!(Test-Path -Path "$HOME\bin"))
-{
+if (!(Test-Path -Path "$HOME\bin")) {
     New-Item -ItemType Directory "$HOME\bin"
 }
 
-if (!("$HOME\bin" -in $Env:Path))
-{
+if (!("$HOME\bin" -in $Env:Path)) {
     $Env:Path += ";$HOME\bin"
 }
 
-if (Get-Command "flutter" -ErrorAction SilentlyContinue) 
-{
+if (Get-Command "flutter" -ErrorAction SilentlyContinue) {
     $pubPackagesPath = Join-Path -Path $env:LocalAppData -ChildPath "Pub\Cache\bin"
 
     $Env:Path += ";$pubPackagesPath"
@@ -30,12 +27,10 @@ Function Open-VSCode { code . }
 Function Open-Explorer {
     $dir = $args[0]
 
-    if ($null -eq $dir)
-    {
+    if ($null -eq $dir) {
         explorer .
     }
-    else 
-    {
+    else {
         explorer $dir
     }
 }
@@ -52,7 +47,7 @@ Function .... { Set-Location ..\..\.. }
 
 # Go
 Function gor { go run . }
-Function gog {go get .}
+Function gog { go get . }
 
 # Kubernetes
 Function kns {
@@ -60,7 +55,8 @@ Function kns {
 
     if (-not $ns) {
         kubectl config set-context --current --namespace=default
-    } else {
+    }
+    else {
         kubectl config set-context --current --namespace=$ns
     }
 }
@@ -69,8 +65,7 @@ Function kctx {
     $action = $args[0]
     $context = $args[1]
 
-    Switch ($action)
-    {
+    Switch ($action) {
         "get" {
             kubectl config get-contexts
         }
@@ -102,9 +97,9 @@ Function kg {
 }
 
 Function kexec {
-   $pod = $args[0]
+    $pod = $args[0]
 
-   kubectl exec -it $pod sh
+    kubectl exec -it $pod sh
 }
 
 Function kgp { kubectl get pod }
@@ -149,6 +144,10 @@ Function gpush {
     $remote = $args[0]
     $branch = $args[1]
 
+    if ($null -eq $remote) {
+        $remote = 'origin'
+    }
+
     if (($remote -eq 'current') -and ($null -eq $branch)) {
         git push origin $(git branch --show-current)
         return
@@ -161,12 +160,40 @@ Function gpull {
     $remote = $args[0]
     $branch = $args[1]
 
+    if ($null -eq $remote) {
+        $remote = 'origin'
+    }
+
     if (($remote -eq 'current') -and ($null -eq $branch)) {
         git pull origin $(git branch --show-current)
         return
     }
 
     git pull $remote $branch
+}
+
+Function Convert-Base64 {
+    process {
+        $action = $args[0]
+        $inputText = $args[1]
+
+        if ($null -eq $inputText) {
+            $inputText = $_
+        }
+    
+        $encodeActions = @("-e", "--encode")
+        $decodeActions = @("-d", "--decode")
+    
+        if ($encodeActions -contains $action) {
+            [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($inputText))
+        }
+        elseif ($decodeActions -contains $action) {
+            [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($inputText))
+        }
+        else {
+            Write-Host "Unrecognized action" -ForegroundColor Red
+        }
+    }
 }
 
 Function x {
@@ -189,20 +216,19 @@ Set-Alias -Name cl -Value clear
 Set-Alias -Name tf -Value terraform
 Set-Alias -Name unzip -Value Expand-Archive
 Set-Alias -Name zip -Value Compress-Archive
+Set-Alias -Name base64 -Value Convert-Base64
 
 # PSReadLine
 Import-Module PSReadLine
 Set-PSReadLineOption -PredictionSource History
 
 # Init Starship
-if (Get-Command "starship" -ErrorAction SilentlyContinue)
-{
+if (Get-Command "starship" -ErrorAction SilentlyContinue) {
     $ENV:STARSHIP_DISTRO = "$Env:username on 者 "
     Invoke-Expression (&starship init powershell)
 }
 
 # Init fnm
-if (Get-Command "fnm" -ErrorAction SilentlyContinue)
-{
-   fnm env --use-on-cd | Out-String | Invoke-Expression
+if (Get-Command "fnm" -ErrorAction SilentlyContinue) {
+    fnm env --use-on-cd | Out-String | Invoke-Expression
 }
