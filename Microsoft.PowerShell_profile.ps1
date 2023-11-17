@@ -148,7 +148,7 @@ Function gpush {
         $remote = 'origin'
     }
 
-    if (($remote -eq 'current') -and ($null -eq $branch)) {
+    if (($remote -eq 'current' -or $remote -eq 'origin' ) -and ($null -eq $branch)) {
         git push origin $(git branch --show-current)
         return
     }
@@ -164,7 +164,7 @@ Function gpull {
         $remote = 'origin'
     }
 
-    if (($remote -eq 'current') -and ($null -eq $branch)) {
+    if (($remote -eq 'current' -or $remote -eq 'origin' ) -and ($null -eq $branch)) {
         git pull origin $(git branch --show-current)
         return
     }
