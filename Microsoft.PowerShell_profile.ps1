@@ -231,4 +231,37 @@ if (Get-Command "starship" -ErrorAction SilentlyContinue) {
 # Init fnm
 if (Get-Command "fnm" -ErrorAction SilentlyContinue) {
     fnm env --use-on-cd | Out-String | Invoke-Expression
+    
+    Function global:Set-LocationWithFnm {
+        param($path)
+    
+        if ($null -eq $path) {
+            Set-Location
+        }
+        else {
+            Set-Location $path
+        }
+    
+        Set-FnmOnLoad
+
+        $Host.UI.RawUI.WindowTitle = Get-Location
+    }
+    
+    Set-Alias -Option AllScope -Scope global cd Set-LocationWithFnm
+}
+else {
+    Function global:Set-LocationWithWindowTitle {
+        param($path)
+    
+        if ($null -eq $path) {
+            Set-Location
+        }
+        else {
+            Set-Location $path
+        }
+    
+        $Host.UI.RawUI.WindowTitle = Get-Location
+    }
+    
+    Set-Alias -Option AllScope -Scope global cd Set-LocationWithWindowTitle
 }
