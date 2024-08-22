@@ -49,6 +49,12 @@ Function .... { Set-Location ..\..\.. }
 Function gor { go run . }
 Function gog { go get . }
 
+Function prd { pnpm run dev }
+Function prb { pnpm run build }
+
+Function nrd { npm run dev }
+Function nrb { npm run build }
+
 # Kubernetes
 Function kns {
     $ns = $args[0]
@@ -217,6 +223,8 @@ Set-Alias -Name tf -Value terraform
 Set-Alias -Name unzip -Value Expand-Archive
 Set-Alias -Name zip -Value Compress-Archive
 Set-Alias -Name base64 -Value Convert-Base64
+Set-Alias -Name pn -Value pnpm
+Set-Alias -Name run -Value prd
 
 # PSReadLine
 Import-Module PSReadLine
