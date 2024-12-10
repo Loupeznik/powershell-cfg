@@ -49,11 +49,16 @@ Function .... { Set-Location ..\..\.. }
 Function gor { go run . }
 Function gog { go get . }
 
+# Git
+Function gcp { git cherry-pick $args[0] }
+
+# Node
 Function prd { pnpm run dev }
 Function prb { pnpm run build }
-
+Function prs { pnpm run build }
 Function nrd { npm run dev }
 Function nrb { npm run build }
+Function nrs { npm run build }
 
 # Kubernetes
 Function kns {
