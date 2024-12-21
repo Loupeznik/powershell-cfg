@@ -13,6 +13,12 @@ if (!("$HOME\bin" -in $Env:Path)) {
     $Env:Path += ";$HOME\bin"
 }
 
+$vimPath = "C:\Program Files\Vim\vim91"
+
+if (Test-Path $vimPath -and !($vimPath -in $Env:Path -split ';')) {
+    $Env:Path += ";$vimPath"
+}
+
 if (Get-Command "flutter" -ErrorAction SilentlyContinue) {
     $pubPackagesPath = Join-Path -Path $env:LocalAppData -ChildPath "Pub\Cache\bin"
 
@@ -230,6 +236,7 @@ Set-Alias -Name zip -Value Compress-Archive
 Set-Alias -Name base64 -Value Convert-Base64
 Set-Alias -Name pn -Value pnpm
 Set-Alias -Name run -Value prd
+Set-Alias -Name vi -Value vim
 
 # PSReadLine
 Import-Module PSReadLine
