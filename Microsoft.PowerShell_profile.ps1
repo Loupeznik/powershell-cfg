@@ -129,6 +129,17 @@ Function kgpv { kubectl get pv }
 
 Function kgpvc { kubectl get pvc }
 
+Function kgsv {
+    $resource = $args[0]
+
+    if ($null -eq $resource) {
+        Write-Error "Provide a secret name."
+        return
+    }
+
+     kubectl get secret $resource -o json | ConvertFrom-Json | ForEach-Object { $_.data.PSObject.Properties } | ForEach-Object { "$($_.Name): $([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($_.Value)))" }
+}
+
 # WSL
 Function almalinux { wsl -d AlmaLinux9 }
 
@@ -189,6 +200,10 @@ Function gpull {
     git pull $remote $branch
 }
 
+Function gs {
+    git status
+}
+
 Function Convert-Base64 {
     process {
         $action = $args[0]
@@ -241,6 +256,8 @@ Set-Alias -Name vi -Value vim
 # PSReadLine
 Import-Module PSReadLine
 Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineOption -PredictionViewStyle ListView
+Set-PSReadLineOption -EditMode Windows
 
 # Init Starship
 if (Get-Command "starship" -ErrorAction SilentlyContinue) {
