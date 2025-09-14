@@ -4,6 +4,10 @@
     Source: https://github.com/Loupeznik/powershell-cfg/blob/master/Microsoft.PowerShell_profile.ps1
 #>
 
+if (!("$HOME\.krew\bin" -in $Env:Path) -and (Test-Path -Path "$HOME\.krew\bin")) {
+    $Env:Path += ";$HOME\.krew\bin"
+}
+
 # Add script folder to PATH
 if (!(Test-Path -Path "$HOME\bin")) {
     New-Item -ItemType Directory "$HOME\bin"
@@ -13,10 +17,15 @@ if (!("$HOME\bin" -in $Env:Path)) {
     $Env:Path += ";$HOME\bin"
 }
 
-$vimPath = "C:\Program Files\Vim\vim91"
+$vimPath = "$HOME\bin\vim91"
+$pythonScriptsPath = "$((Get-Command python -ErrorAction SilentlyContinue).Source | Split-Path -ErrorAction SilentlyContinue)\Scripts"
 
-if (Test-Path $vimPath -and !($vimPath -in $Env:Path -split ';')) {
+if ((Test-Path $vimPath) -and !($vimPath -in ($Env:Path -split ';'))) {
     $Env:Path += ";$vimPath"
+}
+
+if ((Test-Path $pythonScriptsPath) -and !($pythonScriptsPath -in ($Env:Path -split ';'))) {
+    $Env:Path += ";$pythonScriptsPath"
 }
 
 if (Get-Command "flutter" -ErrorAction SilentlyContinue) {
@@ -119,6 +128,22 @@ Function kexec {
     kubectl exec -it $pod sh
 }
 
+Function kdf {
+    $type = $args[0]
+
+    Switch ($type) {
+        { $_ -eq "pod" -or $_ -eq "pods" } {
+            kubectl delete pods --field-selector status.phase=Failed
+        }
+        { $_ -eq "job" -or $_ -eq "jobs" } {
+            kubectl delete jobs --field-selector status.successful=0
+        }
+        default {
+            Write-Error "Type '$type' was not recognized. Supported types: pod, pods, job, jobs"
+        }
+    }
+}
+
 Function kgp { kubectl get pod }
 
 Function kgns { kubectl get ns }
@@ -133,11 +158,11 @@ Function kgsv {
     $resource = $args[0]
 
     if ($null -eq $resource) {
-        Write-Error "Provide a secret name."
+        Write-Error "No resource specified. Usage: kgsv <service-name>"
         return
     }
 
-     kubectl get secret $resource -o json | ConvertFrom-Json | ForEach-Object { $_.data.PSObject.Properties } | ForEach-Object { "$($_.Name): $([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($_.Value)))" }
+    kubectl get secret $resource -o json | ConvertFrom-Json | ForEach-Object { $_.data.PSObject.Properties } | ForEach-Object { "$($_.Name): $([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($_.Value)))" }
 }
 
 # WSL
@@ -212,10 +237,10 @@ Function Convert-Base64 {
         if ($null -eq $inputText) {
             $inputText = $_
         }
-    
+  
         $encodeActions = @("-e", "--encode")
         $decodeActions = @("-d", "--decode")
-    
+  
         if ($encodeActions -contains $action) {
             [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($inputText))
         }
@@ -249,8 +274,7 @@ Set-Alias -Name tf -Value terraform
 Set-Alias -Name unzip -Value Expand-Archive
 Set-Alias -Name zip -Value Compress-Archive
 Set-Alias -Name base64 -Value Convert-Base64
-Set-Alias -Name pn -Value pnpm
-Set-Alias -Name run -Value prd
+Set-Alias -Name sscm -Value SQLServerManager15.msc
 Set-Alias -Name vi -Value vim
 
 # PSReadLine
